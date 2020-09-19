@@ -1,0 +1,96 @@
+$script = <<SCRIPT
+(
+fallocate -l 10G ~/btrfs.img
+mkdir /var/mocker
+mkfs.btrfs ~/btrfs.img
+mount -o loop ~/btrfs.img /var/mocker
+
+apt-get --assume-yes update
+DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+apt-get --assume-yes install python3-dev python3-pip
+
+pip3 install pyroute2
+pip3 install cgroups
+pip3 install python-unshare
+
+git clone http://ogarokpe:popovalana67@gitlab.atp-fivt.org/tpos2019/ogarokpe-hw2.git
+
+cd ogarokpe-hw2
+
+chmod +x mocker.py
+
+) 2>&1
+SCRIPT
+
+$script1 = <<SCRIPT
+(
+#! /usr/bin/env bash
+
+if [ ! -f /tmp/pycharm.tar.gz ]
+then
+    wget -O /tmp/pycharm.tar.gz "https://download.jetbrains.com/python/pycharm-community-2019.3.tar.gz"
+fi
+tar -xf /tmp/pycharm.tar.gz --directory /opt
+rm /tmp/pycharm.tar.gz
+
+# Create symlink
+rm /usr/bin/pycharm 2> /dev/null
+ln -s "/opt/pycharm-community-2019.3/bin/pycharm.sh" /usr/bin/pycharm
+) 2>&1
+SCRIPT
+
+$hosts_script = <<SCRIPT
+cat > /etc/hosts <<EOF
+127.0.0.1       localhost
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+EOF
+SCRIPT
+
+# apt-get --assume-yes install autoconf automake
+# apt-get --assume-yes install pkg-config
+# apt-get --assume-yes install xmlto
+# apt-get --assume-yes install asciidoc
+# apt-get --assume-yes install e2fsprogs e2fslibs-dev util-linux libblkid-dev libzstd-dev liblzo2-dev
+
+# git clone https://github.com/kdave/btrfs-progs.git
+# cd btrfs-progs
+# sudo ./autogen.sh
+# sudo ./configure
+# sudo make
+# sudo make install
+# sudo make install_python
+# cd ..
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
+  config.vm.box = "hashicorp/bionic64" # Ubuntu 18 64bit
+
+  config.vm.provision "shell", inline: $script
+  # config.vm.provision "shell", inline: $script1
+  # config.vm.provision "shell", inline: $hosts_script
+  # config.vm.provision :hostmanager
+
+  # config.hostmanager.enabled = true
+  # config.hostmanager.manage_host = true
+  # config.hostmanager.include_offline = true
+  # config.hostmanager.ignore_private_ip = false
+  # config.ssh.forward_agent = true
+  # config.ssh.forward_x11 = true
+
+end

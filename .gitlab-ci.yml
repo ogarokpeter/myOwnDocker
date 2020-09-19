@@ -1,0 +1,24 @@
+image: ubuntu
+
+stages:
+  - test_init
+
+init:
+  stage: test_init
+  before_script:
+    - whoami
+    - fallocate -l 10G ~/btrfs.img
+    - mkdir /var/mocker
+    - apt-get --assume-yes update
+    - apt-get --assume-yes upgrade
+    - apt-get --assume-yes install btrfs-tools
+    - mkfs.btrfs ~/btrfs.img
+    - apt-get --assume-yes install sudo
+    - sudo mount -o loop ~/btrfs.img /var/mocker
+    - apt-get --assume-yes install python3-pip
+  script: python3 mocker.py init "." | grep -q "Successfully"
+  tags: 
+    - ogarokpe_hw2
+  only: 
+  - master
+
