@@ -16,7 +16,7 @@ git clone http://github.com/ogarokpeter/myOwnDocker.git
 
 cd myOwnDocker
 
-chmod +x myOwnDocker.py
+chmod +x my_own_docker.py
 
 ) 2>&1
 SCRIPT
