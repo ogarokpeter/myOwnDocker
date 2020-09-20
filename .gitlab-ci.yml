@@ -8,15 +8,15 @@ init:
   before_script:
     - whoami
     - fallocate -l 10G ~/btrfs.img
-    - mkdir /var/mocker
+    - mkdir /var/myOwnDocker
     - apt-get --assume-yes update
     - apt-get --assume-yes upgrade
     - apt-get --assume-yes install btrfs-tools
     - mkfs.btrfs ~/btrfs.img
     - apt-get --assume-yes install sudo
-    - sudo mount -o loop ~/btrfs.img /var/mocker
+    - sudo mount -o loop ~/btrfs.img /var/myOwnDocker
     - apt-get --assume-yes install python3-pip
-  script: python3 mocker.py init "." | grep -q "Successfully"
+  script: python3 myOwnDocker.py init "." | grep -q "Successfully"
   tags: 
     - ogarokpe_hw2
   only: 

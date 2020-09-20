@@ -10,9 +10,9 @@ def Logs(container_id, **kwargs):
         if container_id not in containers:
             raise Exception("No container with id {0}".format(container_id))
 
-        with open(os.path.join('/var/mocker/ps/{0}'.format(container_id), 'out.log'), 'r') as f:
+        with open(os.path.join('/var/myOwnDocker/ps/{0}'.format(container_id), 'out.log'), 'r') as f:
             out = f.read()
-        with open(os.path.join('/var/mocker/ps/{0}'.format(container_id), 'err.log'), 'r') as f:
+        with open(os.path.join('/var/myOwnDocker/ps/{0}'.format(container_id), 'err.log'), 'r') as f:
             err = f.read()
 
         print("logs :: Extracted logs from container with id {0} successfully.".format(container_id))

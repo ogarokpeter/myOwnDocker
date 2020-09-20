@@ -42,9 +42,9 @@ def Exec(container_id, command, **kwargs):
         if err is None:
             err = ""
 
-        with open(os.path.join('/var/mocker/ps/{0}'.format(container_id), 'out.log'), 'a') as f:
+        with open(os.path.join('/var/myOwnDocker/ps/{0}'.format(container_id), 'out.log'), 'a') as f:
             f.write(out + '\n')
-        with open(os.path.join('/var/mocker/ps/{0}'.format(container_id), 'err.log'), 'a') as f:
+        with open(os.path.join('/var/myOwnDocker/ps/{0}'.format(container_id), 'err.log'), 'a') as f:
             f.write(err + '\n')
 
         print("exec :: Command {1} ran successfully in container with id {0}.".format(container_id, command))

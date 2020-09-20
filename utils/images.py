@@ -3,7 +3,7 @@ import os
 
 def Images(**kwargs):
     try:
-        images = os.listdir('/var/mocker/images')
+        images = os.listdir('/var/myOwnDocker/images')
     except Exception as e:
         images = []
     print("images :: Total images: {0}.".format(len(images)))

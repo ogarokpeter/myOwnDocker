@@ -23,10 +23,10 @@ def copytree(src, dst):
 
 
 def Init(directory='/', **kwargs):
-    if not os.path.exists('/var/mocker/images'):
-        os.makedirs('/var/mocker/images')
-    if not os.path.exists('/var/mocker/ps'):
-        os.makedirs('/var/mocker/ps')
+    if not os.path.exists('/var/myOwnDocker/images'):
+        os.makedirs('/var/myOwnDocker/images')
+    if not os.path.exists('/var/myOwnDocker/ps'):
+        os.makedirs('/var/myOwnDocker/ps')
     try:
         while True:
             uuid = ''.join(random.sample('qwertyuiopasdfghjklzxcvbnm', 15))
@@ -34,7 +34,7 @@ def Init(directory='/', **kwargs):
             if uuid not in images:
                 break
 
-        uuid_path = os.path.join('/var/mocker/images', uuid)
+        uuid_path = os.path.join('/var/myOwnDocker/images', uuid)
         
         subprocess.run(['btrfs', 'subvolume', 'create', uuid_path], check=True)
         copytree(directory, uuid_path)

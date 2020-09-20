@@ -18,7 +18,7 @@ def Commit(container_id, image_id, **kwargs):
 
         Rm(container_id)
 
-        subprocess.run(['btrfs', 'subvolume', 'snapshot', '/var/mocker/images/{0}'.format(image_id), '/var/mocker/ps/{0}'.format(container_id)], check=True)
+        subprocess.run(['btrfs', 'subvolume', 'snapshot', '/var/myOwnDocker/images/{0}'.format(image_id), '/var/myOwnDocker/ps/{0}'.format(container_id)], check=True)
         
         print("commit :: Created new image out of image with id {1} by applying changes from container with id {0} successfully.".format(container_id, image_id))
         

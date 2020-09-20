@@ -20,7 +20,7 @@ def Run(image_id, command, **kwargs):
             if uuid not in containers:
                 break
         
-        uuid_path = os.path.join('/var/mocker/ps', uuid)
+        uuid_path = os.path.join('/var/myOwnDocker/ps', uuid)
         if not os.path.exists(uuid_path):
             os.makedirs(uuid_path)
 
@@ -57,10 +57,10 @@ def Run(image_id, command, **kwargs):
 
             print("run :: Creating snapshot...")
 
-            subprocess.run(['btrfs', 'subvolume', 'snapshot', '/var/mocker/images/{0}'.format(image_id), '/var/mocker/ps/{0}'.format(uuid)], check=True)
-            with open('/var/mocker/ps/{0}/{1}/etc/resolv.conf'.format(uuid, image_id), 'w') as f:
+            subprocess.run(['btrfs', 'subvolume', 'snapshot', '/var/myOwnDocker/images/{0}'.format(image_id), '/var/myOwnDocker/ps/{0}'.format(uuid)], check=True)
+            with open('/var/myOwnDocker/ps/{0}/{1}/etc/resolv.conf'.format(uuid, image_id), 'w') as f:
                 f.write('nameserver 8.8.8.8\n')
-            with open('/var/mocker/ps/{0}/{1}/{2}.cmd'.format(uuid, image_id, uuid), 'w') as f:
+            with open('/var/myOwnDocker/ps/{0}/{1}/{2}.cmd'.format(uuid, image_id, uuid), 'w') as f:
                 f.write(command + '\n')
 
             try:
@@ -71,7 +71,7 @@ def Run(image_id, command, **kwargs):
                 cg.set_cpu_limit(50)
                 cg.set_memory_limit(512)
 
-                new_root_path = '/var/mocker/ps/{0}/{1}'.format(uuid, image_id)
+                new_root_path = '/var/myOwnDocker/ps/{0}/{1}'.format(uuid, image_id)
 
                 def put_in_cgroup():
                     try:
@@ -103,9 +103,9 @@ def Run(image_id, command, **kwargs):
                 if err is None:
                     err = ""
 
-                with open(os.path.join('/var/mocker/ps/{0}'.format(uuid), 'out.log'), 'a') as f:
+                with open(os.path.join('/var/myOwnDocker/ps/{0}'.format(uuid), 'out.log'), 'a') as f:
                     f.write(out + '\n')
-                with open(os.path.join('/var/mocker/ps/{0}'.format(uuid), 'err.log'), 'a') as f:
+                with open(os.path.join('/var/myOwnDocker/ps/{0}'.format(uuid), 'err.log'), 'a') as f:
                     f.write(err + '\n')
 
                 print("run :: Container with id {0} and command {1} ran successfully.".format(uuid, command))
