@@ -1,9 +1,8 @@
 $script = <<SCRIPT
 (
 fallocate -l 10G ~/btrfs.img
-mkdir /var/mocker
+mkdir /var/myOwnDocker
 mkfs.btrfs ~/btrfs.img
-mount -o loop ~/btrfs.img /var/mocker
 
 apt-get --assume-yes update
 DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
@@ -13,11 +12,11 @@ pip3 install pyroute2
 pip3 install cgroups
 pip3 install python-unshare
 
-git clone http://ogarokpe:popovalana67@gitlab.atp-fivt.org/tpos2019/ogarokpe-hw2.git
+git clone http://github.com/ogarokpeter/myOwnDocker.git
 
-cd ogarokpe-hw2
+cd myOwnDocker
 
-chmod +x mocker.py
+chmod +x myOwnDocker.py
 
 ) 2>&1
 SCRIPT
